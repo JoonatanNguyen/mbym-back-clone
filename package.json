@@ -1,0 +1,33 @@
+{
+  "name": "mbym-back-clone",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run transpile && node dist/server.js",
+    "dev": "export NODE_ENV=development && nodemon",
+    "transpile": "babel src --out-dir dist",
+    "watch": "export NODE_ENV=development && node dist/server.js",
+    "format": "prettier --write \"**/*.ts\"",
+    "test": "export NODE_ENV=test && jest --notify --config=jest.config.js",
+    "coverage": "export NODE_ENV=test && jest --notify --coverage --config=jest.config.js",
+    "build": "tsc --project ./"
+  },
+  "dependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/helmet": "^4.0.0",
+    "@types/node": "^16.11.11",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "firebase-admin": "^10.0.0",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "mongoose": "^6.1.0",
+    "morgan": "~1.9.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  }
+}
