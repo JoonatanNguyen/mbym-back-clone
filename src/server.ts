@@ -3,6 +3,7 @@ import express from "express";
 
 import connectDatabase from "./database";
 import setupServerConfig from "./configs/serverConfig";
+import routes from "./routes";
 
 const port = process.env.NODE_ENV === "test" ? 5050 : process.env.PORT || 7000;
 const app = express();
@@ -16,3 +17,8 @@ const startServer = async () => {
 };
 
 setupServerConfig(app);
+routes(app);
+const server = app.listen(port);
+startServer();
+
+export default server;
