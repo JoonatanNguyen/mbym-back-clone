@@ -3,7 +3,7 @@ import { Container } from "typedi";
 
 const router = express.Router();
 
-router.route("/test").get((req, res) => {
+router.route("/api/user").post((req, res) => {
   return;
 });
 
