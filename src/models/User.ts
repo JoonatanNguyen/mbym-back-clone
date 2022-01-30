@@ -29,5 +29,5 @@ const userSchema = new mongoose.Schema(
 );
 
 export const model = mongoose.model('user', userSchema);
-
+module.exports = model;
 export default model;
