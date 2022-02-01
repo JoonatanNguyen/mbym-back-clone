@@ -1,8 +1,10 @@
-import faker from 'faker';
 import mongoose from 'mongoose';
-import { mockModel } from '../../src/models/Product';
+import faker from 'faker';
 
+import { mockModel } from '../../src/models/Product';
 import { connectDatabase, clearDatabase, closeDatabase } from '../database';
+import ProductRepository from '../../src/repositories/ProductRepository';
+import { Product } from '../../src/types/Type';
 
 const mockProducts = [
   {
@@ -50,12 +52,12 @@ const mockProducts = [
 let productIds: mongoose.Types.ObjectId[] = [];
 
 describe('Product repository', () => {
-  beforeAll(async done => {
+  beforeAll(async () => {
     await connectDatabase();
-    done();
+    // done();
   });
 
-  beforeEach(async done => {
+  beforeEach(async () => {
     const MockProduct = mockModel;
     const addProductsPromises: Promise<void>[] = [];
 
@@ -67,7 +69,7 @@ describe('Product repository', () => {
               ...product
             })
               .save()
-              .then(product => {
+              .then((product: Product) => {
                 productIds.push(product._id);
                 resolve();
               });
@@ -79,24 +81,24 @@ describe('Product repository', () => {
     });
     await Promise.all(addProductsPromises);
 
-    done();
+    // done();
   });
 
-  afterEach(async done => {
+  afterEach(async () => {
     await clearDatabase();
     productIds = [];
 
-    done();
+    // done();
   });
 
-  afterAll(async done => {
+  afterAll(async () => {
     await closeDatabase();
-    done();
+    // done();
   });
 
   describe('Get products in dashboard', () => {
     test('Expect only products set to be shown in dashboard are returned', async () => {
-      const unitUnderTest = new ProductRespository();
+      const unitUnderTest = new ProductRepository();
       const productsShownInDashboard =
         await unitUnderTest.getProductsShownInDashboard();
 
@@ -110,7 +112,7 @@ describe('Product repository', () => {
 
     test('When mongoose throws error, expect product show in dashboard are not returned and errors are thrown', async () => {
       const logErrorFunctionMock = jest.fn();
-      const unitUnderTest = new ProductRespository();
+      const unitUnderTest = new ProductRepository();
       try {
         await unitUnderTest.getProductsShownInDashboard();
       } catch (error) {
